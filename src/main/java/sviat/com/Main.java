@@ -37,12 +37,12 @@ public class Main {
 				words.size(),
 				sortedList.size()));
 
-		System.out.println(String.format("The longest and 2nd longest concatenated words are: \n1st: %s with words -> [%s] "
+		System.out.println(String.format("The longest concatenated words are: \n1st: %s with words -> [%s] "
 						+ "\n2nd: %s with words -> [%s]",
 				sortedList.get(0).getValue().getWord(),
-				sortedList.get(0).getValue().getConstituents().stream().collect(joining(", ")),
+				String.join(", ", sortedList.get(0).getValue().getConstituents()),
 				sortedList.get(1).getValue().getWord(),
-				sortedList.get(1).getValue().getConstituents().stream().collect(joining(", "))));
+				String.join(", ", sortedList.get(1).getValue().getConstituents())));
 
 
 	}

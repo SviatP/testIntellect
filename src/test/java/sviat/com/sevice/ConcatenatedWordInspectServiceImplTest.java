@@ -1,8 +1,11 @@
 package sviat.com.sevice;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -33,8 +36,10 @@ public class ConcatenatedWordInspectServiceImplTest {
 		testSet.add("hippopotamuses");
 		testSet.add("rat");
 		testSet.add("ratcatdogcat");
+		testSet.add("");
 		Map<String, WordUnit> unitMap = service.getDisassembledMapOfConcatenatedWords(testSet);
-		assertEquals("ratcatdogcat", "a");
+		assertEquals(unitMap.entrySet().size(), 3);
+		assertTrue(unitMap.keySet().containsAll(Arrays.asList("catsdogcats", "dogcatsdog", "ratcatdogcat")));
 
 	}
 

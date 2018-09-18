@@ -37,26 +37,28 @@ public class ConcatenatedWordInspectServiceImpl implements ConcatenatedWordInspe
 			String subWord = word.substring(startIndex, endIndex);
 
 			if (set.contains(subWord)) {
-				endIndex = lastSymbolOfSubWord(word, set, startIndex, endIndex);
+				endIndex = getLastSymbolOfSubWord(word, set, startIndex, endIndex);
 				subWord = word.substring(startIndex, endIndex);
 				startIndex = endIndex++;
 				isAssembled = true;
 				wordUnit.getConstituents().add(subWord);
 			} else {
-				isAssembled = false;
 				endIndex++;
+				isAssembled = false;
 			}
 		}
 
 		return isAssembled
-				? wordUnit
+				? wordUnit.getConstituents().size() == 1
+					? null
+					: wordUnit
 				: null;
 	}
 
-	private int lastSymbolOfSubWord(String word, Set<String> set, int start, int end) {
+	private int getLastSymbolOfSubWord(String word, Set<String> set, int start, int end) {
 		if (word.length() >= end + 1 && set.contains(word.substring(start, end + 1))) {
 			end++;
-			end = lastSymbolOfSubWord(word, set, start, end);
+			end = getLastSymbolOfSubWord(word, set, start, end);
 		}
 		return end;
 	}
